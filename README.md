@@ -4,7 +4,7 @@ Inspired by BOME MIDI translator - found the software great but the scripting la
 
 feature goals:
 - allow users to create routines as python scripts and map these to events to alter MIDI signals
-- UDFs as nodes, modular application to MIDI streams
+- UDFs as nodes, modular application to of functions to MIDI streams
 - map input devices to several output devices
 - incorporate a clock for sequencing arpeggios and phrases
 
