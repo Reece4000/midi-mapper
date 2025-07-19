@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout, QFormLayout, QLabel, QTextEd
 from PySide6.QtGui import QIcon, QTextCursor
 from PySide6.QtCore import Qt
 from src.midi_handler import MidiHandler
-
+from src.nodegraph import NodeGraphWidget
 
 
 class MidiMonitor(QWidget):
@@ -11,9 +11,9 @@ class MidiMonitor(QWidget):
 
         self.midi_handler = MidiHandler(callback=self.midi_callback)
 
-        self.setWindowTitle("MIDI Monitor")
+        self.setWindowTitle("MIDI Mapper")
         self.setWindowIcon(QIcon("resources/icon.png"))
-        self.resize(800, 500)
+        self.resize(1024, 768)
 
         main_layout = QVBoxLayout()
         self.setLayout(main_layout)
@@ -48,6 +48,9 @@ class MidiMonitor(QWidget):
         self.message_display.setObjectName("messageDisplay")
         main_layout.addWidget(self.message_display)
 
+        self.node_graph = NodeGraphWidget()
+        main_layout.addWidget(self.node_graph)
+
     def midi_callback(self, msg, timestamp):
         event_type, control, val = msg[0], msg[1], msg[2]
         status_hex = f"{event_type:02X}"
@@ -59,7 +62,7 @@ class MidiMonitor(QWidget):
         # Auto-scroll to the latest message
         self.message_display.moveCursor(QTextCursor.End)
         self.midi_handler.midi_out.send_message(msg)
-        
+
     def change_midi_input(self, index):
         port_name = self.input_combo.itemText(index)
         self.midi_handler.set_midi_in(port_name)
