@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout, QFormLayout, QLabel, QTextEd
 from PySide6.QtGui import QIcon, QTextCursor
 from PySide6.QtCore import Qt
 from src.midi_handler import MidiHandler
-from src.nodegraph import NodeGraphWidget
+from src.node_graph.widget import NodeGraphWidget
 
 
 class MidiMonitor(QWidget):
@@ -47,6 +47,8 @@ class MidiMonitor(QWidget):
         self.message_display.setReadOnly(True)
         self.message_display.setObjectName("messageDisplay")
         main_layout.addWidget(self.message_display)
+
+        main_layout.addSpacing(20)
 
         self.node_graph = NodeGraphWidget()
         main_layout.addWidget(self.node_graph)
